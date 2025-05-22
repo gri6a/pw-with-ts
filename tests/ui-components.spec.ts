@@ -154,3 +154,44 @@ test("Tooltips 2", async ({ page }) => {
   const defaultTooltip = await page.locator("nb-tooltip").textContent();
   await expect(defaultTooltip).toEqual("This is a tooltip");
 });
+
+test("Dialog boxes 1", async ({ page }) => {
+  const openDialogWithComponentBtn = page.getByRole("button", {
+    name: "Open Dialog with component",
+  });
+  const dismissDialogBtn = page.getByRole("button", { name: "Dismiss Dialog" });
+  // console.log(textContainer);
+  const expectedText =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis tincidunt tincidunt. Vestibulum vulputate maximus massa vel tristique. Suspendisse potenti. Duis aliquet purus sed dictum dictum. Donec fringilla, purus at fermentum imperdiet, velit enim malesuada turpis, quis luctus arcu arcu nec orci. Duis eu mattis felis. Quisque sollicitudin elementum nunc vel tincidunt. Vestibulum egestas mi nec iaculis varius. Morbi in risus sed sapien ultricies feugiat. Quisque pulvinar mattis purus, in aliquet massa aliquet et.";
+
+  await page.getByText("Modal & Overlays").click();
+  await page.getByText("Dialog").click();
+  await expect(page).toHaveURL(
+    "http://localhost:4200/pages/modal-overlays/dialog"
+  );
+  await openDialogWithComponentBtn.click();
+  const textContainer = await page
+    .locator("nb-dialog-container nb-card-body")
+    .textContent();
+  expect(textContainer.trim()).toEqual(expectedText);
+  await dismissDialogBtn.click();
+});
+
+test("Dialog boxes 2", async ({ page }) => {
+  const enterNameBtn = page.getByRole("button", { name: "Enter Name" });
+  // const nameInputBox = page.getByRole('textbox', {name: 'Name'});
+  const nameInputBox2 = page.getByPlaceholder("Name");
+  const submitBtn = page.getByRole("button", { name: "Submit" });
+  const cancelBtn = page.getByRole("button", { name: "Cancel" });
+  await page.getByText("Modal & Overlays").click();
+  await page.getByText("Dialog").click();
+  await expect(page).toHaveURL(
+    "http://localhost:4200/pages/modal-overlays/dialog"
+  );
+
+  await enterNameBtn.click();
+  await nameInputBox2.fill("Hello World");
+  await submitBtn.click();
+  const returnedNameText = await page.locator("nb-card-body li").textContent();
+  await expect(returnedNameText).toEqual("Hello World");
+});
