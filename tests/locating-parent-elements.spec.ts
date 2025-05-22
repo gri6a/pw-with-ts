@@ -15,12 +15,3 @@ test("Locating parent elements", async ({ page }) => {
     .getByRole("button", { name: "Sign in" })
     .click();
 });
-/*
-<button _ngcontent-qoq-c287="" type="submit" nbbutton="" status="primary" 
-ng-reflect-status="primary" aria-disabled="false" tabindex="0" 
-class="appearance-filled size-medium shape-rectangle status-primary nb-transition">Sign in</button>
-
-<button _ngcontent-qoq-c287="" type="submit" nbbutton="" status="warning" 
-ng-reflect-status="warning" aria-disabled="false" tabindex="0" 
-class="appearance-filled size-medium shape-rectangle status-warning nb-transition">Sign in</button>
-*/
