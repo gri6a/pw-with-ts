@@ -195,3 +195,43 @@ test("Dialog boxes 2", async ({ page }) => {
   const returnedNameText = await page.locator("nb-card-body li").textContent();
   await expect(returnedNameText).toEqual("Hello World");
 });
+
+test("Dialog boxes 3 - Accepting Alert/Dialog box", async ({ page }) => {
+  await page.getByText("Tables & Data").click();
+  await page.getByText("Smart Table").click();
+
+  // adding listener for dialog box / JS Alert
+  page.on("dialog", (dialog) => {
+    expect(dialog.message()).toEqual("Are you sure you want to delete?");
+    dialog.accept();
+  });
+
+  await page
+    .getByRole("table")
+    .locator("tr", { hasText: "mdo@gmail.com" })
+    .locator(".nb-trash")
+    .click();
+  await expect(page.locator("table tr").first()).not.toHaveText(
+    "mdo@gmail.com"
+  );
+});
+
+test("Dialog boxes 4 - Dismissing Alert/Dialog box", async ({ page }) => {
+  await page.getByText("Tables & Data").click();
+  await page.getByText("Smart Table").click();
+
+  // adding listener for dialog box / JS Alert
+  page.on("dialog", (dialog) => {
+    expect(dialog.message()).toEqual("Are you sure you want to delete?");
+    dialog.dismiss();
+  });
+
+  await page
+    .getByRole("table")
+    .locator("tr", { hasText: "mdo@gmail.com" })
+    .locator(".nb-trash")
+    .click();
+  await expect(
+    page.getByRole("table").getByRole("row", { name: "@mdo" })
+  ).toContainText("mdo@gmail.com");
+});
