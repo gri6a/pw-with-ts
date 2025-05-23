@@ -52,3 +52,17 @@ test("Date Pickers2 - using date object", async ({ page }) => {
     .click();
   await expect(calendarInputField).toHaveValue(dateToAssert);
 });
+
+test("Date Pickers3 - hardcoding date range", async ({ page }) => {
+  await page.getByText("Forms").click();
+  await page.getByText("Datepicker").click();
+  await expect(page).toHaveURL("http://localhost:4200/pages/forms/datepicker");
+  const rangePickerLocator = page.getByPlaceholder("Range Picker");
+  // TEST DATA
+  const dateRange = "May 26, 2025 - Aug 01, 2025"; // Format: e.g. Aug 1, 2025 - Sep 6, 2025
+
+  await rangePickerLocator.clear();
+  await rangePickerLocator.fill(dateRange);
+  await page.getByText('Datepicker With Range').click();
+  await expect(rangePickerLocator).toHaveValue(dateRange);
+});
