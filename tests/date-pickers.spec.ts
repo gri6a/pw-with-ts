@@ -58,7 +58,7 @@ test("Date Pickers3 - hardcoding date range", async ({ page }) => {
   await page.getByText("Datepicker").click();
   await expect(page).toHaveURL("http://localhost:4200/pages/forms/datepicker");
   const rangePickerLocator = page.getByPlaceholder("Range Picker");
-  // TEST DATA
+  // TEST DATA //
   const dateRange = "May 26, 2025 - Aug 01, 2025"; // Format: e.g. Aug 1, 2025 - Sep 6, 2025
 
   await rangePickerLocator.clear();
