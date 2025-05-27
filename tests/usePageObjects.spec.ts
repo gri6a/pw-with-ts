@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { NavigationPage } from "../page-objects/navigationPage";
+import { FormLayoutsPage } from "../page-objects/formLayoutsPage";
 
 test.beforeEach("Navigate to UAT", async ({ page }) => {
   await page.goto("http://localhost:4200");
@@ -7,7 +8,7 @@ test.beforeEach("Navigate to UAT", async ({ page }) => {
 
 test("Go to Form Layouts page / Datepicker page ", async ({ page }) => {
   const navigateTo = new NavigationPage(page);
-  
+
   await navigateTo.formLayoutsPage();
   await expect(page).toHaveURL("http://localhost:4200/pages/forms/layouts");
 
@@ -27,5 +28,41 @@ test("Go to Form Layouts page / Datepicker page ", async ({ page }) => {
   await navigateTo.tooltipPage();
   await expect(page).toHaveURL(
     "http://localhost:4200/pages/modal-overlays/tooltip"
+  );
+});
+
+test("Submitting Using the Grid Form - valid credentials", async ({ page }) => {
+  const navigateTo = new NavigationPage(page);
+  const onFormLayoutsPage = new FormLayoutsPage(page);
+
+  await navigateTo.formLayoutsPage();
+  await onFormLayoutsPage.submitUsingTheGridFormWithCredentialsAndSelectOption(
+    "tester@test.com",
+    "Tester123",
+    "Option 2"
+  );
+});
+
+test("Submitting Inline Form - valid credentials", async ({ page }) => {
+  const navigateTo = new NavigationPage(page);
+  const onFormLayoutsPage = new FormLayoutsPage(page);
+
+  await navigateTo.formLayoutsPage();
+  await onFormLayoutsPage.submitInlineFormWithRememberMe(
+    "Harry Smith",
+    "harry.s@test.com",
+    false
+  );
+});
+
+test("Submitting Basic Form - valid credentials", async ({ page }) => {
+  const navigateTo = new NavigationPage(page);
+  const onFormLayoutsPage = new FormLayoutsPage(page);
+
+  await navigateTo.formLayoutsPage();
+  await onFormLayoutsPage.submitBasicFormWithCheckMeOut(
+    "email123@test.com",
+    "password123",
+    true
   );
 });
