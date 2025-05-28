@@ -62,6 +62,7 @@ test("Select a date from Common Datepicker", async ({ page }) => {
   const pm = new PageManager(page);
   await pm.navigateTo().datepickerPage();
   await pm.onDatepickerPage().selectCommonDatepickerFromToday(7);
+  await pm.onDatepickerPage().waitForNumberOfSeconds(3);
 });
 
 test("Select a date from Range Datepicker", async ({ page }) => {
