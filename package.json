@@ -8,7 +8,9 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve"
+    "start": "ng serve",
+    "api-chrome": "npx playwright test conduitAPI.spec.ts --project=chromium",
+    "api-firefox": "npx playwright test conduitAPI.spec.ts --project=firefox"
   },
   "dependencies": {
     "@angular/animations": "^14.2.12",
