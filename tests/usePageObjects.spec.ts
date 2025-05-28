@@ -75,3 +75,11 @@ test("Select a date from Common Datepicker", async ({ page }) => {
   await navigateTo.datepickerPage();
   await onDatepickerPage.selectCommonDatepickerFromToday(7);
 });
+
+test("Select a date from Range Datepicker", async ({ page }) => {
+  const navigateTo = new NavigationPage(page);
+  const onDatepickerPage = new DatepickerPage(page);
+
+  await navigateTo.datepickerPage();
+  await onDatepickerPage.selectRangeDatepickerFromToday(7, 10);
+});
