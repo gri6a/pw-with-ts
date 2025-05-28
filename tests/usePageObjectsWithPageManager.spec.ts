@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { PageManager } from "../page-objects/pageManager";
+import { faker } from "@faker-js/faker";
 
 test.beforeEach("Navigate to UAT", async ({ page }) => {
   await page.goto("http://localhost:4200");
@@ -43,11 +44,13 @@ test("Submitting Using the Grid Form - valid credentials", async ({ page }) => {
 });
 
 test("Submitting Inline Form - valid credentials", async ({ page }) => {
+  const randomFullName = faker.person.fullName();
+  const randomEmail = `${randomFullName.split(" ").join("")}${faker.number.int(1000)}@test.com`;
   const pm = new PageManager(page);
   await pm.navigateTo().formLayoutsPage();
   await pm
     .onFormLayoutsPage()
-    .submitInlineFormWithRememberMe("Harry Smith", "harry.s@test.com", false);
+    .submitInlineFormWithRememberMe(randomFullName, randomEmail, false);
 });
 
 test("Submitting Basic Form - valid credentials", async ({ page }) => {
