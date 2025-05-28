@@ -12,10 +12,10 @@ test.beforeEach("Navigate to base url", async ({ page }) => {
     });
   });
   await page.goto("https://conduit.bondaracademy.com/");
-  await page.getByText("Sign in").click();
-  await page.getByPlaceholder("Email").fill("tester2803@test.com");
-  await page.getByPlaceholder("Password").fill("Tester123");
-  await page.getByRole("button", { name: "Sign in" }).click();
+  // await page.getByText("Sign in").click();
+  // await page.getByPlaceholder("Email").fill("tester2803@test.com");
+  // await page.getByPlaceholder("Password").fill("Tester123");
+  // await page.getByRole("button", { name: "Sign in" }).click();
 });
 
 test("test1 - Mocking API", async ({ page }) => {
