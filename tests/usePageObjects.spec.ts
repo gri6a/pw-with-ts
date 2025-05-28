@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { NavigationPage } from "../page-objects/navigationPage";
 import { FormLayoutsPage } from "../page-objects/formLayoutsPage";
+import { DatepickerPage } from "../page-objects/datepickerPage";
 
 test.beforeEach("Navigate to UAT", async ({ page }) => {
   await page.goto("http://localhost:4200");
@@ -65,4 +66,20 @@ test("Submitting Basic Form - valid credentials", async ({ page }) => {
     "password123",
     true
   );
+});
+
+test("Select a date from Common Datepicker", async ({ page }) => {
+  const navigateTo = new NavigationPage(page);
+  const onDatepickerPage = new DatepickerPage(page);
+
+  await navigateTo.datepickerPage();
+  await onDatepickerPage.selectCommonDatepickerFromToday(7);
+});
+
+test("Select a date from Range Datepicker", async ({ page }) => {
+  const navigateTo = new NavigationPage(page);
+  const onDatepickerPage = new DatepickerPage(page);
+
+  await navigateTo.datepickerPage();
+  await onDatepickerPage.selectRangeDatepickerFromToday(7, 10);
 });
